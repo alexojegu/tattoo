@@ -5,7 +5,12 @@
     "ecmaVersion": 2022,
     "sourceType": "module"
   },
-  "extends": ["eslint:recommended"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "env": {
     "browser": true,
     "node": true,
@@ -15,11 +20,13 @@
     "no-console": "warn",
     "no-duplicate-imports": "error",
     "object-shorthand": "error",
-    "sort-imports": ["error", { "ignoreCase": true, "ignoreDeclarationSort": true }]
+    "sort-imports": ["error", { "ignoreCase": true, "ignoreDeclarationSort": true }],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
   },
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": ["*.ts", "*.tsx"],
       "parserOptions": {
         "project": ["packages/**/tsconfig.json"]
       },
