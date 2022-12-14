@@ -1,0 +1,21 @@
+{
+  "name": "@tattoo/server",
+  "version": "0.0.1",
+  "description": "Tattoo - Servidor Web",
+  "author": "Alejandro Ojeda Gutiérrez",
+  "private": true,
+  "type": "module",
+  "main": "dist/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/localnet/tattoo.git",
+    "directory": "packages/server"
+  },
+  "scripts": {
+    "start": "node makefile.js start",
+    "build": "node makefile.js build"
+  },
+  "dependencies": {
+    "tslib": "^2.4.1"
+  }
+}

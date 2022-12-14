@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build workspaces",
+      "type": "shell",
+      "command": "npm -ws run build",
+      "problemMatcher": "$tsc",
+      "group": "build"
+    }
+  ]
+}

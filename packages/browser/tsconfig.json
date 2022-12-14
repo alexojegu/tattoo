@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM"],
+    "target": "ES2015",
+    "checkJs": true,
+    "noEmit": false,
+    "outDir": "dist",
+    "importHelpers": true
+  },
+  "include": ["src"]
+}

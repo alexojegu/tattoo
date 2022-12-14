@@ -1,0 +1,21 @@
+{
+  "name": "@tattoo/browser",
+  "version": "0.0.1",
+  "description": "Tattoo - Cliente Web",
+  "author": "Alejandro Ojeda Gutiérrez",
+  "private": true,
+  "type": "module",
+  "main": "dist/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/localnet/tattoo.git",
+    "directory": "packages/browser"
+  },
+  "scripts": {
+    "start": "node makefile.js start",
+    "build": "node makefile.js build"
+  },
+  "dependencies": {
+    "tslib": "^2.4.1"
+  }
+}

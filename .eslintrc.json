@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "ignorePatterns": ["dist"],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "extends": ["eslint:recommended"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "shelljs": true
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-duplicate-imports": "error",
+    "object-shorthand": "error",
+    "sort-imports": ["error", { "ignoreCase": true, "ignoreDeclarationSort": true }]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["packages/**/tsconfig.json"]
+      },
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
+        "@typescript-eslint/explicit-member-accessibility": "error",
+        "@typescript-eslint/member-ordering": "error",
+        "@typescript-eslint/promise-function-async": "error"
+      }
+    }
+  ]
+}
