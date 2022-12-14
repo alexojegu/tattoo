@@ -11,3 +11,8 @@ target.build = () => {
   rm('-fr', 'dist/*');
   exec('tsc --pretty');
 };
+
+target.watch = () => {
+  env['NODE_ENV'] = 'development';
+  exec('nodemon --config .nodemonrc.json');
+};

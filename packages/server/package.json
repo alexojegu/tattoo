@@ -13,9 +13,19 @@
   },
   "scripts": {
     "start": "node makefile.js start",
-    "build": "node makefile.js build"
+    "build": "node makefile.js build",
+    "watch": "node makefile.js watch"
   },
   "dependencies": {
-    "tslib": "^2.4.1"
+    "express": "^4.18.2",
+    "reflect-metadata": "^0.1.13",
+    "tslib": "^2.4.1",
+    "tsyringe": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.15",
+    "@types/node": "^18.11.15",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
   }
 }
