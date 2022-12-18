@@ -2,7 +2,7 @@
 
 files=$(git diff --cached --name-only --diff-filter=dx)
 
-echo "$files" | grep -E "\.(jsx?|tsx?)$" | xargs npx eslint
+echo "$files" | grep -E "\.(graphql|jsx?|tsx?)$" | xargs npx eslint
 
 if [ $? -ne 0 ]; then
   exit $?

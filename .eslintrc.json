@@ -37,6 +37,10 @@
         "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/promise-function-async": "error"
       }
+    },
+    {
+      "files": ["*.graphql"],
+      "extends": ["plugin:@graphql-eslint/schema-recommended"]
     }
   ]
 }

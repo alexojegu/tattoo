@@ -1,0 +1,7 @@
+"""
+Cuenta de usuario.
+"""
+type Account {
+    id: ID!
+    name: String!
+}

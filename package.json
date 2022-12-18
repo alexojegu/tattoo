@@ -21,6 +21,7 @@
     "@tattoo/server": "file:packages/server"
   },
   "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^3.13.1",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
     "dotenv": "^16.0.3",

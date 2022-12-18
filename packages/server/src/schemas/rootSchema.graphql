@@ -1,0 +1,4 @@
+"""
+Consultas GraphQL.
+"""
+type Query

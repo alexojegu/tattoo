@@ -1,3 +1,8 @@
 {
-  "recommendations": ["dbaeumer.vscode-eslint", "dotenv.dotenv-vscode", "editorconfig.editorconfig"]
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "dotenv.dotenv-vscode",
+    "editorconfig.editorconfig",
+    "graphql.vscode-graphql"
+  ]
 }

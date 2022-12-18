@@ -10,6 +10,9 @@ target.build = () => {
   env['NODE_ENV'] = 'production';
   rm('-fr', 'dist/*');
   exec('tsc --pretty');
+  ls('src/schemas/**/*.graphql').forEach((file) => {
+    cp('-f', file, file.replace('src', 'dist'));
+  });
 };
 
 target.watch = () => {

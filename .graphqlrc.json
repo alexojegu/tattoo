@@ -1,0 +1,3 @@
+{
+  "schema": "packages/server/src/schemas/**/*.graphql"
+}

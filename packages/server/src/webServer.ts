@@ -1,13 +1,18 @@
 import express, { Application } from "express";
-import { createServer, Server } from "node:http";
+import { createServer, IncomingMessage, Server, ServerResponse } from "node:http";
 import { singleton } from "tsyringe";
+import GraphqlMiddleware from "./middlewares/graphqlMiddleware.js";
 
 @singleton()
 export default class WebServer {
+    private graphqlMiddleware: GraphqlMiddleware;
+    private initialized: boolean;
     private application: Application;
     private server: Server;
 
-    public constructor() {
+    public constructor(graphqlMiddleware: GraphqlMiddleware) {
+        this.graphqlMiddleware = graphqlMiddleware;
+        this.initialized = false;
         this.application = express();
         this.server = createServer(this.application);
     }
@@ -15,6 +20,11 @@ export default class WebServer {
     public async listen(): Promise<void> {
         if (this.server.listening) {
             return;
+        }
+
+        if (!this.initialized) {
+            this.graphqlMiddleware.apply(this.application);
+            this.initialized = true;
         }
 
         await new Promise<void>((resolve, reject) => {
@@ -35,4 +45,13 @@ export default class WebServer {
             this.server.close();
         });
     }
+}
+
+export interface WebServerMiddleware {
+    apply(application: Application): void;
+}
+
+export interface WebServerContext {
+    req: IncomingMessage;
+    res: ServerResponse;
 }
