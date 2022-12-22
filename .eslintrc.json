@@ -28,7 +28,7 @@
     {
       "files": ["*.ts", "*.tsx"],
       "parserOptions": {
-        "project": ["packages/**/tsconfig.json"]
+        "project": ["tsconfig.json", "packages/*/tsconfig.json"]
       },
       "extends": ["plugin:@typescript-eslint/recommended"],
       "rules": {

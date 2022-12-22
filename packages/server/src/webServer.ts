@@ -1,17 +1,22 @@
 import express, { Application } from "express";
 import { createServer, IncomingMessage, Server, ServerResponse } from "node:http";
-import { singleton } from "tsyringe";
+import { injectAll, registry, singleton } from "tsyringe";
+import DatabaseMiddleware from "./middlewares/databaseMiddleware.js";
 import GraphqlMiddleware from "./middlewares/graphqlMiddleware.js";
 
 @singleton()
+@registry([
+    { token: "WebServerMiddleware", useClass: DatabaseMiddleware },
+    { token: "WebServerMiddleware", useClass: GraphqlMiddleware },
+])
 export default class WebServer {
-    private graphqlMiddleware: GraphqlMiddleware;
+    private middlewares: WebServerMiddleware[];
     private initialized: boolean;
     private application: Application;
     private server: Server;
 
-    public constructor(graphqlMiddleware: GraphqlMiddleware) {
-        this.graphqlMiddleware = graphqlMiddleware;
+    public constructor(@injectAll("WebServerMiddleware") middlewares: WebServerMiddleware[]) {
+        this.middlewares = middlewares;
         this.initialized = false;
         this.application = express();
         this.server = createServer(this.application);
@@ -23,7 +28,7 @@ export default class WebServer {
         }
 
         if (!this.initialized) {
-            this.graphqlMiddleware.apply(this.application);
+            this.middlewares.forEach((middleware) => middleware.apply(this.application));
             this.initialized = true;
         }
 
