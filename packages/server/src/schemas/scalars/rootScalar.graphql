@@ -1,0 +1,4 @@
+"""
+Representa una fecha.
+"""
+scalar Date

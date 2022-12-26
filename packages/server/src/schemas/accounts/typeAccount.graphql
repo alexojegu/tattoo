@@ -4,4 +4,6 @@ Cuenta de usuario.
 type Account {
     id: ID!
     name: String!
+    createdAt: Date!
+    updatedAt: Date
 }

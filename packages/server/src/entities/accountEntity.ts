@@ -7,4 +7,10 @@ export default class AccountEntity {
 
     @Property()
     public name!: string;
+
+    @Property({ onCreate: () => new Date() })
+    public createdAt!: Date;
+
+    @Property({ onUpdate: () => new Date(), nullable: true })
+    public updatedAt?: Date;
 }
