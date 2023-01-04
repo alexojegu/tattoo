@@ -1,0 +1,11 @@
+"""
+Imagen de Tatuaje.
+"""
+type Tattoo implements Node {
+    id: ID!
+    image: String!
+    width: Int!
+    height: Int!
+    createdAt: Date!
+    updatedAt: Date
+}

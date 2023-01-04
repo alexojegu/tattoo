@@ -1,7 +1,7 @@
 """
 Cuenta de usuario.
 """
-type Account {
+type Account implements Node {
     id: ID!
     name: String!
     createdAt: Date!

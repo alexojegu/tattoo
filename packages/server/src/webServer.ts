@@ -6,16 +6,17 @@ import GraphqlMiddleware from "./middlewares/graphqlMiddleware.js";
 
 @singleton()
 @registry([
-    { token: "WebServerMiddleware", useClass: DatabaseMiddleware },
-    { token: "WebServerMiddleware", useClass: GraphqlMiddleware },
+    { token: WebServer.middlewareToken, useClass: DatabaseMiddleware },
+    { token: WebServer.middlewareToken, useClass: GraphqlMiddleware },
 ])
 export default class WebServer {
+    public static readonly middlewareToken = Symbol("WebServerMiddleware");
     private middlewares: WebServerMiddleware[];
     private initialized: boolean;
     private application: Application;
     private server: Server;
 
-    public constructor(@injectAll("WebServerMiddleware") middlewares: WebServerMiddleware[]) {
+    public constructor(@injectAll(WebServer.middlewareToken) middlewares: WebServerMiddleware[]) {
         this.middlewares = middlewares;
         this.initialized = false;
         this.application = express();

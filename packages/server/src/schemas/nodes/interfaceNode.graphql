@@ -1,0 +1,6 @@
+"""
+Nodo con ID global.
+"""
+interface Node {
+    id: ID!
+}

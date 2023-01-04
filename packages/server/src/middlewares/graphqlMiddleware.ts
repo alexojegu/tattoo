@@ -6,7 +6,14 @@ import { readFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { container, DependencyContainer, injectable } from "tsyringe";
-import { ResolverSchemaType, rootTypes, scalarTypes } from "../schemas/resolverSchema.js";
+import {
+    abstractTypes,
+    objectTypes,
+    ResolverSchemaAbstract,
+    ResolverSchemaObject,
+    rootTypes,
+    scalarTypes,
+} from "../schemas/resolverSchema.js";
 import type { WebServerContext, WebServerMiddleware } from "../webServer.js";
 
 @injectable()
@@ -37,10 +44,12 @@ export default class GraphqlMiddleware implements WebServerMiddleware {
         return files.map((file) => readFileSync(file, "utf-8"));
     }
 
-    private mergeResolvers(): Record<string, GraphQLScalarType | ResolverSchemaType<never>>[] {
-        return [...scalarTypes, ...rootTypes];
+    private mergeResolvers(): Record<string, GraphqlMiddlewareResolver>[] {
+        return [...scalarTypes, ...rootTypes, ...abstractTypes, ...objectTypes];
     }
 }
+
+type GraphqlMiddlewareResolver = GraphQLScalarType | ResolverSchemaAbstract<never> | ResolverSchemaObject<never>;
 
 export interface GraphqlMiddlewareContext {
     container: DependencyContainer;
