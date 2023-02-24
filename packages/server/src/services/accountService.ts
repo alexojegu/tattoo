@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql";
 import { inject, injectable } from "tsyringe";
 import type AccountEntity from "../entities/accountEntity.js";
 import type { NodeProxyService } from "../proxies/nodeProxy.js";
@@ -14,22 +15,18 @@ export default class AccountService implements NodeProxyService {
     }
 
     public static globalId(entity: AccountEntity): string {
-        return GraphqlUtil.encode({ type: ResolverNode.Account, id: entity.id });
-    }
-
-    public async getAccount(gid: string): Promise<AccountEntity | null> {
-        const { type, id } = GraphqlUtil.decode(gid);
-
-        if (type !== ResolverNode.Account || typeof id != "number") {
-            return null;
-        }
-
-        return this.getNode(id);
+        return GraphqlUtil.encode([ResolverNode.Account, entity.id]);
     }
 
     public async getNode(id: number): Promise<AccountEntity | null> {
-        if (id <= 0) {
-            return null;
+        return this.accountStore.findId(id);
+    }
+
+    public async getAccount(gid: string): Promise<AccountEntity | null> {
+        const [type, id] = GraphqlUtil.decode(gid);
+
+        if (type !== ResolverNode.Account || typeof id != "number") {
+            throw new GraphQLError("Argument id cannot be invalid global id of Account");
         }
 
         return this.accountStore.findId(id);

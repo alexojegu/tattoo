@@ -1,0 +1,4 @@
+extend type Query {
+    artist(id: ID!): Artist
+    artists(first: Int, after: String, last: Int, before: String): ArtistConnection!
+}

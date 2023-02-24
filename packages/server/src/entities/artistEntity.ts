@@ -1,10 +1,13 @@
 import { Entity, Property } from "@mikro-orm/core";
 import AbstractEntity from "./abstractEntity.js";
 
-@Entity({ tableName: "account" })
-export default class AccountEntity extends AbstractEntity {
-    @Property()
-    public name!: string;
+@Entity({ tableName: "artist" })
+export default class ArtistEntity extends AbstractEntity {
+    @Property({ nullable: true })
+    public avatar?: string;
+
+    @Property({ columnType: "text" })
+    public about!: string;
 
     @Property({ onCreate: () => new Date() })
     public created!: Date;

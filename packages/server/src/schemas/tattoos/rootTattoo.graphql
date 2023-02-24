@@ -1,3 +1,4 @@
 extend type Query {
     tattoo(id: ID!): Tattoo
+    tattoos(first: Int, after: String, last: Int, before: String): TattooConnection!
 }

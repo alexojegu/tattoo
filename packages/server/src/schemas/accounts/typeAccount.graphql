@@ -4,6 +4,6 @@ Cuenta de usuario.
 type Account implements Node {
     id: ID!
     name: String!
-    createdAt: Date!
-    updatedAt: Date
+    created: Date!
+    updated: Date
 }

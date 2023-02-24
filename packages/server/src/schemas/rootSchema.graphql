@@ -2,3 +2,13 @@
 Consultas GraphQL.
 """
 type Query
+
+"""
+Información de página.
+"""
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+    startCursor: String
+    endCursor: String
+}

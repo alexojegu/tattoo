@@ -13,8 +13,8 @@ export default class TattooEntity extends AbstractEntity {
     public height!: number;
 
     @Property({ onCreate: () => new Date() })
-    public createdAt!: Date;
+    public created!: Date;
 
     @Property({ onUpdate: () => new Date(), nullable: true })
-    public updatedAt?: Date;
+    public updated?: Date;
 }

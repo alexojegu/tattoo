@@ -1,16 +1,16 @@
 import { inject, singleton } from "tsyringe";
 import DatabaseClient from "../databaseClient.js";
-import TattooEntity from "../entities/tattooEntity.js";
+import ArtistEntity from "../entities/artistEntity.js";
 import type { GraphqlUtilPage } from "../utils/graphqlUtil.js";
 import AbstractStore from "./abstractStore.js";
 
 @singleton()
-export default class TattooStore extends AbstractStore<TattooEntity> {
+export default class ArtistStore extends AbstractStore<ArtistEntity> {
     public constructor(@inject(DatabaseClient) databaseClient: DatabaseClient) {
-        super(databaseClient.manager.getRepository(TattooEntity));
+        super(databaseClient.manager.getRepository(ArtistEntity));
     }
 
-    public async findRows({ limit, step, cursor }: GraphqlUtilPage): Promise<TattooEntity[]> {
+    public async findRows({ limit, step, cursor }: GraphqlUtilPage): Promise<ArtistEntity[]> {
         const [operator, order] = step === "after" ? ["$gt", 1] : ["$lt", -1];
 
         if (!cursor.length) {

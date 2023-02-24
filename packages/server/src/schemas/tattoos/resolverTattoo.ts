@@ -7,6 +7,9 @@ export const tattootRoot: Record<"Query", ResolverSchemaObject<undefined>> = {
         tattoo: async (_source, { id }, context) => {
             return context.container.resolve(TattooService).getTattoo(id);
         },
+        tattoos: async (_source, args, context) => {
+            return context.container.resolve(TattooService).getTattoos(args);
+        },
     },
 };
 

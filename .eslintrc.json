@@ -40,7 +40,13 @@
     },
     {
       "files": ["*.graphql"],
-      "extends": ["plugin:@graphql-eslint/schema-recommended"]
+      "extends": ["plugin:@graphql-eslint/schema-recommended"],
+      "rules": {
+        "@graphql-eslint/strict-id-in-types": [
+          "error",
+          { "exceptions": { "types": ["PageInfo"], "suffixes": ["Edge", "Connection"] } }
+        ]
+      }
     }
   ]
 }

@@ -1,11 +1,27 @@
 """
-Imagen de Tatuaje.
+Imagen de tatuaje.
 """
 type Tattoo implements Node {
     id: ID!
     image: String!
     width: Int!
     height: Int!
-    createdAt: Date!
-    updatedAt: Date
+    created: Date!
+    updated: Date
+}
+
+"""
+Paginación de tatuajes, metadatos de tatuaje.
+"""
+type TattooEdge {
+    cursor: String!
+    node: Tattoo!
+}
+
+"""
+Paginación de tatuajes, metadatos de página.
+"""
+type TattooConnection {
+    edges: [TattooEdge]!
+    pageInfo: PageInfo!
 }

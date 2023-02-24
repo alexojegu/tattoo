@@ -1,0 +1,26 @@
+"""
+Usuario tipo artista.
+"""
+type Artist implements Node {
+    id: ID!
+    avatar: String
+    about: String!
+    created: Date!
+    updated: Date
+}
+
+"""
+Paginación de artistas, metadatos de artista.
+"""
+type ArtistEdge {
+    cursor: String!
+    node: Artist!
+}
+
+"""
+Paginación de artistas, metadatos de página.
+"""
+type ArtistConnection {
+    edges: [ArtistEdge]!
+    pageInfo: PageInfo!
+}
