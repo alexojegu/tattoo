@@ -1,4 +1,4 @@
-import { MikroORM, Options } from "@mikro-orm/core";
+import { MikroORM, type Options } from "@mikro-orm/core";
 import type { EntityManager, PostgreSqlDriver } from "@mikro-orm/postgresql";
 import { singleton } from "tsyringe";
 

@@ -25,7 +25,7 @@ export default class AccountService implements NodeProxyService {
     public async getAccount(gid: string): Promise<AccountEntity | null> {
         const [type, id] = GraphqlUtil.decode(gid);
 
-        if (type !== ResolverNode.Account || typeof id != "number") {
+        if (type !== ResolverNode.Account || typeof id !== "number") {
             throw new GraphQLError("Argument id cannot be invalid global id of Account");
         }
 

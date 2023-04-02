@@ -1,5 +1,5 @@
-import express, { Application } from "express";
-import { createServer, IncomingMessage, Server, ServerResponse } from "node:http";
+import express, { type Application } from "express";
+import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { injectAll, registry, singleton } from "tsyringe";
 import DatabaseMiddleware from "./middlewares/databaseMiddleware.js";
 import GraphqlMiddleware from "./middlewares/graphqlMiddleware.js";

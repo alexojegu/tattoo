@@ -41,7 +41,7 @@ export default class GraphqlUtil {
     }
 
     private static jsonReviver(_key: string, value: unknown): unknown {
-        if (typeof value == "string" && GraphqlUtil.datePattern.test(value)) {
+        if (typeof value === "string" && GraphqlUtil.datePattern.test(value)) {
             return new Date(value);
         }
 
@@ -49,7 +49,7 @@ export default class GraphqlUtil {
     }
 
     private static listParser({ first, after, last, before }: GraphqlUtilList): GraphqlUtilPage {
-        if (first != undefined) {
+        if (first != null) {
             if (first < 0) {
                 throw new GraphQLError("Argument first cannot be non-positive integer");
             }
@@ -61,7 +61,7 @@ export default class GraphqlUtil {
             return { limit: first, step: "after", cursor: after ? GraphqlUtil.decode(after) : [] };
         }
 
-        if (last != undefined) {
+        if (last != null) {
             if (last < 0) {
                 throw new GraphQLError("Argument last cannot be non-positive integer");
             }

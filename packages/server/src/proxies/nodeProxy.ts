@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { DependencyContainer, inject, injectable, registry } from "tsyringe";
+import { type DependencyContainer, inject, injectable, registry } from "tsyringe";
 import type AbstractEntity from "../entities/abstractEntity.js";
 import AccountEntity from "../entities/accountEntity.js";
 import ArtistEntity from "../entities/artistEntity.js";
@@ -51,7 +51,7 @@ export default class NodeProxy {
     public async getNode(gid: string): Promise<AbstractEntity | null | undefined> {
         const [type, id] = GraphqlUtil.decode(gid);
 
-        if (typeof type != "string" || typeof id != "number") {
+        if (typeof type !== "string" || typeof id !== "number") {
             throw new GraphQLError("Argument id cannot be invalid global id");
         }
 

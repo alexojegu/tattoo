@@ -4,7 +4,7 @@ import type ArtistEntity from "../entities/artistEntity.js";
 import type { NodeProxyService } from "../proxies/nodeProxy.js";
 import { ResolverNode } from "../schemas/nodes/resolverNode.js";
 import ArtistStore from "../stores/artistStore.js";
-import GraphqlUtil, { GraphqlUtilConnection, GraphqlUtilList } from "../utils/graphqlUtil.js";
+import GraphqlUtil, { type GraphqlUtilConnection, type GraphqlUtilList } from "../utils/graphqlUtil.js";
 
 @injectable()
 export default class ArtistService implements NodeProxyService {
@@ -25,7 +25,7 @@ export default class ArtistService implements NodeProxyService {
     public async getArtist(gid: string): Promise<ArtistEntity | null> {
         const [type, id] = GraphqlUtil.decode(gid);
 
-        if (type !== ResolverNode.Artist || typeof id != "number") {
+        if (type !== ResolverNode.Artist || typeof id !== "number") {
             throw new GraphQLError("Argument id cannot be invalid global id of Artist");
         }
 
@@ -35,7 +35,7 @@ export default class ArtistService implements NodeProxyService {
     public async getArtists(list: GraphqlUtilList): Promise<GraphqlUtilConnection<ArtistEntity>> {
         const [page, build] = GraphqlUtil.paginate(list);
 
-        if (page.cursor.length && typeof page.cursor[0] != "number") {
+        if (page.cursor.length && typeof page.cursor[0] !== "number") {
             throw new GraphQLError(`Argument ${page.step} cannot be invalid cursor of Artist`);
         }
 

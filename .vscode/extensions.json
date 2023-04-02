@@ -3,7 +3,6 @@
     "dbaeumer.vscode-eslint",
     "dotenv.dotenv-vscode",
     "editorconfig.editorconfig",
-    "graphql.vscode-graphql",
-    "ms-azuretools.vscode-docker"
+    "graphql.vscode-graphql"
   ]
 }

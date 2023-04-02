@@ -11,7 +11,7 @@ export default {
             return value.toISOString();
         },
         parseValue: (value) => {
-            if (typeof value != "string") {
+            if (typeof value !== "string") {
                 throw new GraphQLError("Scalar Date cannot represent non string type");
             }
 

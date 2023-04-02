@@ -4,7 +4,7 @@ import type TattooEntity from "../entities/tattooEntity.js";
 import type { NodeProxyService } from "../proxies/nodeProxy.js";
 import { ResolverNode } from "../schemas/nodes/resolverNode.js";
 import TattooStore from "../stores/tattooStore.js";
-import GraphqlUtil, { GraphqlUtilConnection, GraphqlUtilList } from "../utils/graphqlUtil.js";
+import GraphqlUtil, { type GraphqlUtilConnection, type GraphqlUtilList } from "../utils/graphqlUtil.js";
 
 @injectable()
 export default class TattooService implements NodeProxyService {
@@ -25,7 +25,7 @@ export default class TattooService implements NodeProxyService {
     public async getTattoo(gid: string): Promise<TattooEntity | null> {
         const [type, id] = GraphqlUtil.decode(gid);
 
-        if (type !== ResolverNode.Tattoo || typeof id != "number") {
+        if (type !== ResolverNode.Tattoo || typeof id !== "number") {
             throw new GraphQLError("Argument id cannot be invalid global id of Tattoo");
         }
 
@@ -35,7 +35,7 @@ export default class TattooService implements NodeProxyService {
     public async getTattoos(list: GraphqlUtilList): Promise<GraphqlUtilConnection<TattooEntity>> {
         const [page, build] = GraphqlUtil.paginate(list);
 
-        if (page.cursor.length && typeof page.cursor[0] != "number") {
+        if (page.cursor.length && typeof page.cursor[0] !== "number") {
             throw new GraphQLError(`Argument ${page.step} cannot be invalid cursor of Tattoo`);
         }
 

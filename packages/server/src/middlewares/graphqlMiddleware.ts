@@ -1,16 +1,16 @@
-import type { Application } from "express";
+import type { Application, RequestHandler } from "express";
 import { globbySync } from "globby";
 import type { GraphQLScalarType } from "graphql";
-import { createSchema, createYoga, YogaServerInstance } from "graphql-yoga";
+import { createSchema, createYoga, type YogaServerInstance } from "graphql-yoga";
 import { readFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { container, DependencyContainer, injectable } from "tsyringe";
+import { container, type DependencyContainer, injectable } from "tsyringe";
 import {
     abstractTypes,
     objectTypes,
-    ResolverSchemaAbstract,
-    ResolverSchemaObject,
+    type ResolverSchemaAbstract,
+    type ResolverSchemaObject,
     rootTypes,
     scalarTypes,
 } from "../schemas/resolverSchema.js";
@@ -32,7 +32,7 @@ export default class GraphqlMiddleware implements WebServerMiddleware {
     }
 
     public apply(application: Application): void {
-        application.use("/", this.yogaServer);
+        application.use("/", this.yogaServer as RequestHandler);
     }
 
     private loadDefinitions(): string[] {

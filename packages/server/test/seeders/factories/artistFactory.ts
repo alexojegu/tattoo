@@ -1,5 +1,5 @@
 import type { Constructor, EntityData, EntityManager } from "@mikro-orm/core";
-import { Factory, Faker } from "@mikro-orm/seeder";
+import { Factory, type Faker } from "@mikro-orm/seeder";
 import ArtistEntity from "../../../src/entities/artistEntity.js";
 
 export default class ArtistFactory extends Factory<ArtistEntity> {
