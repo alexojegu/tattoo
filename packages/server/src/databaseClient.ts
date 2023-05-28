@@ -21,7 +21,7 @@ export default class DatabaseClient {
 
     public get manager(): EntityManager {
         if (!this.mikroOrm) {
-            throw new Error("Entity Manager cannot be used before connect to database");
+            throw new Error("Entity Manager cannot be used before connecting to database");
         }
 
         return this.mikroOrm.em;

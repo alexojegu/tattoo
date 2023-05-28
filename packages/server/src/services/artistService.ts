@@ -1,44 +1,54 @@
 import { GraphQLError } from "graphql";
 import { inject, injectable } from "tsyringe";
 import type ArtistEntity from "../entities/artistEntity.js";
+import ArtistLoader from "../loaders/artistLoader.js";
 import type { NodeProxyService } from "../proxies/nodeProxy.js";
 import { ResolverNode } from "../schemas/nodes/resolverNode.js";
 import ArtistStore from "../stores/artistStore.js";
-import GraphqlUtil, { type GraphqlUtilConnection, type GraphqlUtilList } from "../utils/graphqlUtil.js";
+import GraphqlUtil from "../utils/graphqlUtil.js";
+import PageUtil, { type PageUtilArgs, type PageUtilConnection } from "../utils/pageUtil.js";
 
 @injectable()
 export default class ArtistService implements NodeProxyService {
+    private artistLoader: ArtistLoader;
     private artistStore: ArtistStore;
 
-    public constructor(@inject(ArtistStore) artistStore: ArtistStore) {
+    public constructor(
+        @inject(ArtistLoader) artistLoader: ArtistLoader,
+        @inject(ArtistStore) artistStore: ArtistStore,
+    ) {
+        this.artistLoader = artistLoader;
         this.artistStore = artistStore;
     }
 
     public static globalId(entity: ArtistEntity): string {
-        return GraphqlUtil.encode([ResolverNode.Artist, entity.id]);
+        return GraphqlUtil.encodeGid(ResolverNode.Artist, entity.id);
     }
 
-    public async getNode(id: number): Promise<ArtistEntity | null> {
-        return this.artistStore.findId(id);
-    }
-
-    public async getArtist(gid: string): Promise<ArtistEntity | null> {
-        const [type, id] = GraphqlUtil.decode(gid);
+    public async getArtist(gid: string): Promise<ArtistEntity | undefined> {
+        const [type, id] = GraphqlUtil.decodeGid(gid);
 
         if (type !== ResolverNode.Artist || typeof id !== "number") {
-            throw new GraphQLError("Argument id cannot be invalid global id of Artist");
+            throw new GraphQLError("Artist global ID cannot be in an invalid format");
         }
 
-        return this.artistStore.findId(id);
+        return this.loadNode(id);
     }
 
-    public async getArtists(list: GraphqlUtilList): Promise<GraphqlUtilConnection<ArtistEntity>> {
-        const [page, build] = GraphqlUtil.paginate(list);
+    public async getArtists(page: PageUtilArgs): Promise<PageUtilConnection<ArtistEntity>> {
+        const { size, step, cursor } = PageUtil.parseArgs(page);
 
-        if (page.cursor.length && typeof page.cursor[0] !== "number") {
-            throw new GraphQLError(`Argument ${page.step} cannot be invalid cursor of Artist`);
+        if (cursor && (typeof cursor[0] !== "number" || cursor[1] != null)) {
+            throw new GraphQLError("Artist connection cursor cannot be in an invalid format");
         }
 
-        return build(await this.artistStore.findRows(page), "id");
+        const pageUtil = new PageUtil(size, step, cursor);
+        const entities = await this.artistStore.findRows(pageUtil);
+
+        return pageUtil.toConnection(entities);
+    }
+
+    public async loadNode(id: number): Promise<ArtistEntity | undefined> {
+        return this.artistLoader.fillNode(id);
     }
 }

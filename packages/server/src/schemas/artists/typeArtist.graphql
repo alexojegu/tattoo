@@ -3,6 +3,8 @@ Usuario tipo artista.
 """
 type Artist implements Node {
     id: ID!
+    account: Account!
+    tattoos(first: Int, after: String, last: Int, before: String): TattooConnection!
     avatar: String
     about: String!
     created: Date!

@@ -1,8 +1,8 @@
 import { GraphQLError } from "graphql";
-import { type DependencyContainer, inject, injectable, registry } from "tsyringe";
-import type AbstractEntity from "../entities/abstractEntity.js";
+import { type DependencyContainer, inject, injectable, instancePerContainerCachingFactory, registry } from "tsyringe";
 import AccountEntity from "../entities/accountEntity.js";
 import ArtistEntity from "../entities/artistEntity.js";
+import type NodeEntity from "../entities/nodeEntity.js";
 import TattooEntity from "../entities/tattooEntity.js";
 import { ResolverNode } from "../schemas/nodes/resolverNode.js";
 import AccountService from "../services/accountService.js";
@@ -11,7 +11,9 @@ import TattooService from "../services/tattooService.js";
 import GraphqlUtil from "../utils/graphqlUtil.js";
 
 @injectable()
-@registry([{ token: NodeProxy.factoryToken, useFactory: NodeProxy.injectionFactory }])
+@registry([
+    { token: NodeProxy.factoryToken, useFactory: instancePerContainerCachingFactory(NodeProxy.injectionFactory) },
+])
 export default class NodeProxy {
     public static readonly factoryToken = Symbol("NodeProxyFactory");
     private factory: NodeProxyFactory;
@@ -20,7 +22,7 @@ export default class NodeProxy {
         this.factory = factory;
     }
 
-    public static resolve(entity: AbstractEntity): string | undefined {
+    public static resolveType(entity: NodeEntity): string | undefined {
         switch (entity.constructor.name) {
             case AccountEntity.name:
                 return ResolverNode.Account;
@@ -34,7 +36,7 @@ export default class NodeProxy {
     }
 
     private static injectionFactory(container: DependencyContainer): NodeProxyFactory {
-        return (type: string) => {
+        return (type: unknown) => {
             switch (type) {
                 case ResolverNode.Account:
                     return container.resolve(AccountService);
@@ -43,24 +45,28 @@ export default class NodeProxy {
                 case ResolverNode.Tattoo:
                     return container.resolve(TattooService);
                 default:
-                    return undefined;
+                    throw new GraphQLError("Node global ID cannot be in an invalid format");
             }
         };
     }
 
-    public async getNode(gid: string): Promise<AbstractEntity | null | undefined> {
-        const [type, id] = GraphqlUtil.decode(gid);
+    public async getNode(gid: string): Promise<NodeEntity | undefined> {
+        const [type, id] = GraphqlUtil.decodeGid(gid);
 
-        if (typeof type !== "string" || typeof id !== "number") {
-            throw new GraphQLError("Argument id cannot be invalid global id");
+        if (typeof id !== "number") {
+            throw new GraphQLError("Node global ID cannot be in an invalid format");
         }
 
-        return this.factory(type)?.getNode(id);
+        return this.factory(type).loadNode(id);
+    }
+
+    public async getNodes(gids: string[]): Promise<(NodeEntity | undefined)[]> {
+        return Promise.all(gids.map(async (gid) => this.getNode(gid)));
     }
 }
 
-type NodeProxyFactory = (type: string) => NodeProxyService | undefined;
+type NodeProxyFactory = (type: unknown) => NodeProxyService;
 
 export interface NodeProxyService {
-    getNode(id: number): Promise<AbstractEntity | null>;
+    loadNode(id: number): Promise<NodeEntity | undefined>;
 }

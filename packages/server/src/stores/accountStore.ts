@@ -1,10 +1,10 @@
 import { inject, singleton } from "tsyringe";
 import DatabaseClient from "../databaseClient.js";
 import AccountEntity from "../entities/accountEntity.js";
-import AbstractStore from "./abstractStore.js";
+import NodeStore from "./nodeStore.js";
 
 @singleton()
-export default class AccountStore extends AbstractStore<AccountEntity> {
+export default class AccountStore extends NodeStore<AccountEntity> {
     public constructor(@inject(DatabaseClient) databaseClient: DatabaseClient) {
         super(databaseClient.manager.getRepository(AccountEntity));
     }

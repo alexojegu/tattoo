@@ -3,6 +3,7 @@ Imagen de tatuaje.
 """
 type Tattoo implements Node {
     id: ID!
+    artist: Artist!
     image: String!
     width: Int!
     height: Int!

@@ -1,110 +1,44 @@
 import { GraphQLError } from "graphql";
+import { autoInjectable } from "tsyringe";
+import CryptoUtil from "./cryptoUtil.js";
 
+@autoInjectable()
 export default class GraphqlUtil {
-    private static datePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
-
-    public static encode(payload: unknown[]): string {
-        const json = JSON.stringify(payload);
-
-        return Buffer.from(json, "utf8").toString("base64url");
+    public static encodeGid(type: string, id: number): string {
+        return CryptoUtil.encodeBase64([type, id], true);
     }
 
-    public static decode(payload: string): unknown[] {
-        const json = Buffer.from(payload, "base64url").toString("utf8");
-
-        return JSON.parse(json, GraphqlUtil.jsonReviver);
+    public static decodeGid(gid: string): unknown[] {
+        try {
+            return GraphqlUtil.decodeToken(gid);
+        } catch {
+            throw new GraphQLError("Global ID cannot be in an invalid format");
+        }
     }
 
-    public static paginate(list: GraphqlUtilList): [GraphqlUtilPage, GraphqlUtilBuild] {
-        const { limit, step, cursor } = GraphqlUtil.listParser(list);
-        const build: GraphqlUtilBuild = (items, ...keys) => {
-            const edges = items.slice(0, limit).map((item) => ({
-                cursor: GraphqlUtil.encode(keys.map((key) => item[key])),
-                node: item,
-            }));
-
-            if (step === "before") {
-                edges.reverse();
-            }
-
-            const info = {
-                hasPreviousPage: step === "before" ? items.length > limit : false,
-                hasNextPage: step === "after" ? items.length > limit : false,
-                startCursor: edges[0]?.cursor,
-                endCursor: edges[edges.length - 1]?.cursor,
-            };
-
-            return { edges, pageInfo: info };
-        };
-
-        return [{ limit: limit + 1, step, cursor }, build];
+    public static encodeCursor(id: number, sort?: unknown): string {
+        return CryptoUtil.encodeBase64([id, sort], true);
     }
 
-    private static jsonReviver(_key: string, value: unknown): unknown {
-        if (typeof value === "string" && GraphqlUtil.datePattern.test(value)) {
-            return new Date(value);
+    public static decodeCursor(cursor?: string): unknown[] | undefined {
+        if (!cursor) {
+            return undefined;
         }
 
-        return value;
+        try {
+            return GraphqlUtil.decodeToken(cursor);
+        } catch {
+            throw new GraphQLError("Connection cursor cannot be in an invalid format");
+        }
     }
 
-    private static listParser({ first, after, last, before }: GraphqlUtilList): GraphqlUtilPage {
-        if (first != null) {
-            if (first < 0) {
-                throw new GraphQLError("Argument first cannot be non-positive integer");
-            }
+    private static decodeToken(token: string): unknown[] {
+        const payload = CryptoUtil.decodeBase64(token, true);
 
-            if (before) {
-                throw new GraphQLError("Argument first and before cannot be used together");
-            }
-
-            return { limit: first, step: "after", cursor: after ? GraphqlUtil.decode(after) : [] };
+        if (!Array.isArray(payload)) {
+            throw new TypeError("Payload cannot be anything other than an array");
         }
 
-        if (last != null) {
-            if (last < 0) {
-                throw new GraphQLError("Argument last cannot be non-positive integer");
-            }
-
-            if (after) {
-                throw new GraphQLError("Argument last and after cannot be used together");
-            }
-
-            return { limit: last, step: "before", cursor: before ? GraphqlUtil.decode(before) : [] };
-        }
-
-        throw new GraphQLError("Argument first and last cannot be both undefined");
+        return payload;
     }
-}
-
-type GraphqlUtilBuild = <TItem>(items: TItem[], ...keys: (keyof TItem)[]) => GraphqlUtilConnection<TItem>;
-
-export interface GraphqlUtilList {
-    first?: number;
-    after?: string;
-    last?: number;
-    before?: string;
-}
-
-export interface GraphqlUtilPage {
-    limit: number;
-    step: "after" | "before";
-    cursor: unknown[];
-}
-
-export interface GraphqlUtilEdge<TNode> {
-    cursor: string;
-    node: TNode;
-}
-
-export interface GraphqlUtilInfo {
-    hasPreviousPage: boolean;
-    hasNextPage: boolean;
-    startCursor: string | undefined;
-    endCursor: string | undefined;
-}
-
-export interface GraphqlUtilConnection<TNode> {
-    edges: GraphqlUtilEdge<TNode>[];
-    pageInfo: GraphqlUtilInfo;
 }

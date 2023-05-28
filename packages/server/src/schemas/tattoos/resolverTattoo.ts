@@ -1,4 +1,5 @@
 import type TattooEntity from "../../entities/tattooEntity.js";
+import ArtistService from "../../services/artistService.js";
 import TattooService from "../../services/tattooService.js";
 import type { ResolverSchemaObject } from "../resolverSchema.js";
 
@@ -17,6 +18,9 @@ export const tattooObject: Record<"Tattoo", ResolverSchemaObject<TattooEntity>> 
     Tattoo: {
         id: (source) => {
             return TattooService.globalId(source);
+        },
+        artist: async ({ artist }, _args, context) => {
+            return context.container.resolve(ArtistService).loadNode(artist.id);
         },
     },
 };

@@ -1,15 +1,15 @@
 import type { FilterQuery } from "@mikro-orm/core";
 import type { EntityRepository } from "@mikro-orm/postgresql";
-import type AbstractEntity from "../entities/abstractEntity.js";
+import type NodeEntity from "../entities/nodeEntity.js";
 
-export default abstract class AbstractStore<TEntity extends AbstractEntity> {
+export default abstract class NodeStore<TEntity extends NodeEntity> {
     protected entityRepository: EntityRepository<TEntity>;
 
     public constructor(entityRepository: EntityRepository<TEntity>) {
         this.entityRepository = entityRepository;
     }
 
-    public async findId(id: number): Promise<TEntity | null> {
-        return this.entityRepository.findOne({ id: { $eq: id } } as FilterQuery<TEntity>);
+    public async findIds(ids: readonly number[]): Promise<TEntity[]> {
+        return this.entityRepository.find({ id: { $in: ids } } as FilterQuery<TEntity>);
     }
 }

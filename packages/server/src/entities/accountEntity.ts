@@ -1,8 +1,8 @@
 import { Entity, Property } from "@mikro-orm/core";
-import AbstractEntity from "./abstractEntity.js";
+import NodeEntity from "./nodeEntity.js";
 
 @Entity({ tableName: "account" })
-export default class AccountEntity extends AbstractEntity {
+export default class AccountEntity extends NodeEntity {
     @Property()
     public name!: string;
 

@@ -27,7 +27,7 @@ export default class GraphqlMiddleware implements WebServerMiddleware {
                 typeDefs: this.loadDefinitions(),
                 resolvers: this.mergeResolvers(),
             }),
-            context: () => ({ container: container.createChildContainer() }),
+            context: { container: container.createChildContainer() },
         });
     }
 

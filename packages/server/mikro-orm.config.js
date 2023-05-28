@@ -7,7 +7,7 @@ export default {
   entities: ['dist/entities/*.js'],
   entitiesTs: ['src/entities/*.ts'],
   seeder: {
-    pathTs: 'test/seeders',
+    pathTs: 'test/helpers',
     defaultSeeder: 'default',
   },
 };
