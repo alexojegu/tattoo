@@ -10,5 +10,5 @@ target.fix = () => {
 };
 
 target.style = () => {
-  exec('prettier --write . !**/dist');
+  exec('prettier --write .');
 };

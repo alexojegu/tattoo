@@ -1,4 +1,6 @@
 {
   "files.eol": "\n",
+  // https://github.com/flathub/com.visualstudio.code/issues/370#issuecomment-1616816310
+  "terminal.integrated.env.linux": { "LD_PRELOAD": null },
   "typescript.tsdk": "node_modules/typescript/lib"
 }
