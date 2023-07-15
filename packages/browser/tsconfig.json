@@ -7,7 +7,13 @@
     "checkJs": true,
     "noEmit": false,
     "outDir": "dist",
-    "importHelpers": true
+    "importHelpers": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": { "customMatcher": "\\.css$" }
+      }
+    ]
   },
   "include": ["src"]
 }

@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "./siteGlobal.css";
 import AppRoot from "./appRoot.js";
 
 createRoot(document.getElementById("root") as HTMLElement).render(

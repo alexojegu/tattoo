@@ -1,0 +1,8 @@
+:root {
+  --color-neutral-canvas-default: var(--color-solid-slate-1);
+  --color-neutral-canvas-subtle: var(--color-solid-slate-2);
+  --color-neutral-border-default: var(--color-solid-slate-7);
+  --color-neutral-border-subtle: var(--color-solid-slate-6);
+  --color-neutral-text-default: var(--color-solid-slate-12);
+  --color-neutral-text-subtle: var(--color-solid-slate-11);
+}

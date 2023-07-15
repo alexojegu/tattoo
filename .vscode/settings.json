@@ -1,6 +1,9 @@
 {
+  "css.validate": false,
   "files.eol": "\n",
   // https://github.com/flathub/com.visualstudio.code/issues/370#issuecomment-1616816310
   "terminal.integrated.env.linux": { "LD_PRELOAD": null },
+  // https://github.com/microsoft/vscode/issues/135713
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib"
 }

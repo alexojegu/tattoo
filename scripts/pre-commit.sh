@@ -8,5 +8,11 @@ if [ $? -ne 0 ]; then
   exit $?
 fi
 
+echo "$files" | grep -E "\.css$" | xargs npx stylelint
+
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+
 echo "$files" | xargs npx prettier --ignore-unknown --write
 echo "$files" | xargs git add

@@ -3,6 +3,7 @@
     "dbaeumer.vscode-eslint",
     "dotenv.dotenv-vscode",
     "editorconfig.editorconfig",
-    "graphql.vscode-graphql"
+    "graphql.vscode-graphql",
+    "stylelint.vscode-stylelint"
   ]
 }

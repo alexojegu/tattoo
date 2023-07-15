@@ -1,0 +1,29 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-solid-slate-1: hsl(206deg 30% 98.8%);
+    --color-solid-slate-2: hsl(210deg 16.7% 97.6%);
+    --color-solid-slate-3: hsl(209deg 13.3% 95.3%);
+    --color-solid-slate-4: hsl(209deg 12.2% 93.2%);
+    --color-solid-slate-5: hsl(208deg 11.7% 91.1%);
+    --color-solid-slate-6: hsl(208deg 11.3% 88.9%);
+    --color-solid-slate-7: hsl(207deg 11.1% 85.9%);
+    --color-solid-slate-8: hsl(205deg 10.7% 78%);
+    --color-solid-slate-9: hsl(206deg 6% 56.1%);
+    --color-solid-slate-10: hsl(206deg 5.8% 52.3%);
+    --color-solid-slate-11: hsl(206deg 6% 43.5%);
+    --color-solid-slate-12: hsl(206deg 24% 9%);
+
+    --color-solid-blue-1: hsl(206deg 100% 99.2%);
+    --color-solid-blue-2: hsl(210deg 100% 98%);
+    --color-solid-blue-3: hsl(209deg 100% 96.5%);
+    --color-solid-blue-4: hsl(210deg 98.8% 94%);
+    --color-solid-blue-5: hsl(209deg 95% 90.1%);
+    --color-solid-blue-6: hsl(209deg 81.2% 84.5%);
+    --color-solid-blue-7: hsl(208deg 77.5% 76.9%);
+    --color-solid-blue-8: hsl(206deg 81.9% 65.3%);
+    --color-solid-blue-9: hsl(206deg 100% 50%);
+    --color-solid-blue-10: hsl(208deg 100% 47.3%);
+    --color-solid-blue-11: hsl(211deg 100% 43.2%);
+    --color-solid-blue-12: hsl(211deg 100% 15%);
+  }
+}

@@ -1,0 +1,22 @@
+@import "./tokens/colorToken.css";
+@import "./tokens/layoutToken.css";
+@import "./tokens/referenceToken.css";
+@import "./tokens/typographyToken.css";
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: var(--line-height-regular);
+  color: var(--color-neutral-text-default);
+  background-color: var(--color-neutral-canvas-default);
+}
