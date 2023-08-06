@@ -1,11 +1,68 @@
+@value size-header: 4rem;
+
 .page {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
 }
 
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-indice-1);
+  display: flex;
+  justify-content: space-between;
+  height: size-header;
+  padding-right: var(--space-5);
+  padding-left: var(--space-5);
+}
+
+.header-box {
+  display: flex;
+  align-items: center;
+}
+
+.header-link {
+  margin-left: calc(var(--space-1) * -1);
+  padding: var(--space-1);
+  color: inherit;
+}
+
+.header-graphic {
+  composes: base from "../styles/graphicStyle.css";
+  fill: currentColor;
+}
+
+.header-nav {
+  margin-left: var(--space-3);
+}
+
+.header-nav-list {
+  composes: base from "../styles/listStyle.css";
+  display: flex;
+  list-style: none;
+}
+
+.header-nav-link {
+  display: inline-block;
+  padding: var(--space-2);
+  color: inherit;
+  text-decoration: none;
+}
+
 .main {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+}
+
+.footer {
+  padding-right: var(--space-5);
+  padding-left: var(--space-5);
+}
+
+.footer-box {
+  border-top: var(--border-width-1) solid var(--color-neutral-border-subtle);
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-8);
 }

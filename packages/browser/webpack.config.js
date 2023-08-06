@@ -15,6 +15,7 @@ export default {
   module: {
     rules: [
       { test: /\.css$/, use: [MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { modules: true } }] },
+      { test: /\.svg$/, issuer: /\.[jt]sx?$/, use: '@svgr/webpack' },
       { test: /\.tsx?$/, exclude: /node_modules/, use: 'ts-loader' },
     ],
   },

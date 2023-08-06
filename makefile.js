@@ -12,5 +12,5 @@ target.fix = () => {
 };
 
 target.style = () => {
-  exec('prettier --write .');
+  exec('prettier --write --ignore-unknown "**/*"');
 };
