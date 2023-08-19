@@ -22,7 +22,6 @@ export default class TattooLoader extends NodeLoader<TattooEntity> {
             this.artistCache.set(hash, new DataLoader(async (ids) => this.batchArtists(ids, pageUtil)));
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return this.artistCache.get(hash)!.load(id);
     }
 

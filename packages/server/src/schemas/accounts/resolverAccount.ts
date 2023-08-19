@@ -10,7 +10,7 @@ export const accountRoot: Record<"Query", ResolverSchemaObject<undefined>> = {
     },
 };
 
-export const accountObject: Record<"Account", ResolverSchemaObject<AccountEntity>> = {
+export const accountType: Record<"Account", ResolverSchemaObject<AccountEntity>> = {
     Account: {
         id: (source) => {
             return AccountService.globalId(source);

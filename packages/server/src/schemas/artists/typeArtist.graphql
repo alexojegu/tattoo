@@ -23,6 +23,6 @@ type ArtistEdge {
 Paginación de artistas, metadatos de página.
 """
 type ArtistConnection {
-    edges: [ArtistEdge]!
+    edges: [ArtistEdge!]!
     pageInfo: PageInfo!
 }

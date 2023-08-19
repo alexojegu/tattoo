@@ -23,6 +23,6 @@ type TattooEdge {
 Paginación de tatuajes, metadatos de página.
 """
 type TattooConnection {
-    edges: [TattooEdge]!
+    edges: [TattooEdge!]!
     pageInfo: PageInfo!
 }

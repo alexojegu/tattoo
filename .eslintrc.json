@@ -31,7 +31,7 @@
       "parserOptions": {
         "project": ["tsconfig.json", "packages/*/tsconfig.json"]
       },
-      "extends": ["plugin:@typescript-eslint/recommended"],
+      "extends": ["plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/stylistic"],
       "rules": {
         "@typescript-eslint/consistent-type-imports": ["error", { "fixStyle": "inline-type-imports" }],
         "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],

@@ -15,7 +15,7 @@ export const artistRoot: Record<"Query", ResolverSchemaObject<undefined>> = {
     },
 };
 
-export const artistObject: Record<"Artist", ResolverSchemaObject<ArtistEntity>> = {
+export const artistType: Record<"Artist", ResolverSchemaObject<ArtistEntity>> = {
     Artist: {
         id: (source) => {
             return ArtistService.globalId(source);

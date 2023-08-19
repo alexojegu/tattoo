@@ -3,7 +3,7 @@ import ArtistService from "../../services/artistService.js";
 import TattooService from "../../services/tattooService.js";
 import type { ResolverSchemaObject } from "../resolverSchema.js";
 
-export const tattootRoot: Record<"Query", ResolverSchemaObject<undefined>> = {
+export const tattooRoot: Record<"Query", ResolverSchemaObject<undefined>> = {
     Query: {
         tattoo: async (_source, { id }, context) => {
             return context.container.resolve(TattooService).getTattoo(id);
@@ -14,7 +14,7 @@ export const tattootRoot: Record<"Query", ResolverSchemaObject<undefined>> = {
     },
 };
 
-export const tattooObject: Record<"Tattoo", ResolverSchemaObject<TattooEntity>> = {
+export const tattooType: Record<"Tattoo", ResolverSchemaObject<TattooEntity>> = {
     Tattoo: {
         id: (source) => {
             return TattooService.globalId(source);

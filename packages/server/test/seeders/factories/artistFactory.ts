@@ -13,6 +13,7 @@ export default class ArtistFactory extends Factory<ArtistEntity> {
 
     public definition(faker: Faker): EntityData<ArtistEntity> {
         return {
+            avatar: faker.helpers.maybe(() => faker.image.avatar()) ?? null,
             about: faker.lorem.paragraphs(),
         };
     }

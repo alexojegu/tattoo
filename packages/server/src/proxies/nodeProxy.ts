@@ -22,7 +22,7 @@ export default class NodeProxy {
         this.factory = factory;
     }
 
-    public static resolveType(entity: NodeEntity): string | undefined {
+    public static resolveType(entity: NodeEntity): string {
         switch (entity.constructor.name) {
             case AccountEntity.name:
                 return ResolverNode.Account;
@@ -31,7 +31,7 @@ export default class NodeProxy {
             case TattooEntity.name:
                 return ResolverNode.Tattoo;
             default:
-                return undefined;
+                throw new Error("The node type cannot be of an unknown type");
         }
     }
 
